@@ -39,7 +39,7 @@ SELECT f.title,
   FROM film_actor AS fa
   JOIN film AS f
 	ON f.film_id = fa.film_id
- GROUP By fa.film_id;
+ GROUP BY fa.film_id;
 
 -- 5
 SELECT c.last_name, c.first_name, 
