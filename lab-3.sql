@@ -33,8 +33,8 @@ SELECT *
 			ON i.inventory_id = r.inventory_id
 		 GROUP BY i.film_id, r.customer_id
 		HAVING times_rented > 1
-	  ) as q1
-JOIN (
+	    ) as q1
+  JOIN (
 	    SELECT i.film_id, 
 			   r.customer_id,
                COUNT(*) AS times_rented
@@ -43,9 +43,9 @@ JOIN (
 			ON i.inventory_id = r.inventory_id
 		 GROUP BY i.film_id, r.customer_id
 		HAVING times_rented > 1
-     ) as q2
-  ON q2.film_id = q1.film_id
- AND q2.customer_id < q1.customer_id;
+       ) as q2
+    ON q2.film_id = q1.film_id
+   AND q2.customer_id < q1.customer_id;
 
 -- 3
 SELECT f.film_id, f.title,
