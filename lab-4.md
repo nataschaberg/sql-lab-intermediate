@@ -10,6 +10,9 @@
 
 ### Improved Design
 
-1. added new table `rental_rate` and connecected via PK `rental_rate_id` from `rental_rate` table to FK `rental_rate_id` in `film` table
+1. added new table `film_rental_rate` with PK `rental_rate_id` and FK `film_id`
+2. added new table `special_feature` with PK `feature_id`
+3. added connecting table `film_special_feature` with PK `feature_id` AND PK `film_id` > thus this PK will be a composite to guarantee uniqueness
 
-![Screen Shot 2022-12-03 at 17 07 32](https://user-images.githubusercontent.com/25902252/205450615-a8f388ce-43f4-4a0c-bfee-51e2b6a31769.png)
+
+![Screen Shot 2022-12-06 at 09 58 12](https://user-images.githubusercontent.com/25902252/205866159-6bb092b4-e0a2-41e0-bb30-5a326725f5e0.png)
