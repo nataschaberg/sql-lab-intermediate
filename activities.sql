@@ -64,7 +64,7 @@ SELECT *
 
 SELECT *
   FROM client AS cl
-  LEFT JOIN disp AS d
+  JOIN disp AS d
     ON d.client_id = cl.client_id
   LEFT JOIN card AS c
     ON c.disp_id = d.disp_id
@@ -72,7 +72,7 @@ SELECT *
 
 SELECT COUNT(*)
   FROM client AS cl
-  LEFT JOIN disp AS d
+  JOIN disp AS d
     ON d.client_id = cl.client_id
   LEFT JOIN card AS c
     ON c.disp_id = d.disp_id
