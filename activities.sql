@@ -79,3 +79,19 @@ SELECT COUNT(*)
  WHERE card_id IS NULL;
  
 
+-- 3.05 - 1
+-- Find out the average number of transactions by account. Get those accounts that have more transactions than the average.
+
+SELECT account_id, COUNT(*) AS trans_per_account
+  FROM trans
+ GROUP BY account_id
+HAVING trans_per_account > (SELECT AVG(tr_per_acc) 
+                              FROM (SELECT COUNT(*) AS tr_per_acc
+                                      FROM trans
+									 GROUP BY account_id
+									) as s1
+							);
+
+
+ 
+
