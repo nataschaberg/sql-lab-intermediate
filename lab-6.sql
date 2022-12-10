@@ -10,14 +10,14 @@ SELECT fa1.film_id, fa1.actor_id, fa2.actor_id
 
 -- 2. For each film, list actor that has acted in more films (in coparisson to other actors from same film)
 
-  WITH cte_fpa as (
+  WITH cte_fpa AS (
 SELECT fa.film_id, fa.actor_id,
 	   q1.films_per_actor,
 	   DENSE_RANK() OVER(PARTITION BY fa.film_id ORDER BY q1.films_per_actor DESC) AS rn
   FROM film_actor AS fa
   JOIN (SELECT actor_id, COUNT(*) AS films_per_actor
 		  FROM film_actor
-		 GROUP BY actor_id) as q1
+		 GROUP BY actor_id) AS q1
 	ON q1.actor_id = fa.actor_id
  ORDER BY film_id) 
 SELECT f.title,
