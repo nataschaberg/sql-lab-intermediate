@@ -5,7 +5,7 @@ SELECT fa1.film_id, fa1.actor_id, fa2.actor_id
   FROM film_actor AS fa1
   JOIN film_actor AS fa2
     ON fa2.film_id = fa1.film_id
-   AND fa2.actor_id <> fa1.actor_id;
+   AND fa2.actor_id > fa1.actor_id;
 
 
 -- 2. For each film, list actor that has acted in more films (in coparisson to other actors from same film)
