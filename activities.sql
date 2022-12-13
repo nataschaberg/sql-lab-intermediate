@@ -1,5 +1,62 @@
-
 USE bank;
+-- 2.08 - 1
+
+SELECT *,
+	   DENSE_RANK() OVER(ORDER BY A4) as rank_num_inhabitants
+ FROM district
+ORDER BY rank_num_inhabitants;
+
+SELECT *,
+	   DENSE_RANK() OVER(PARTITION BY A3 ORDER BY A4) as rank_num_inhabitants
+ FROM district
+ORDER BY A3;
+
+SELECT *,
+	   DENSE_RANK() OVER(ORDER BY A9) AS rn_num_cities
+  FROM district;
+  
+SELECT *,
+	   DENSE_RANK() OVER(PARTITION BY A3 ORDER BY A9) AS rn_num_cities
+  FROM district;
+
+SELECT *,
+       DENSE_RANK() OVER(ORDER BY A10) AS rn_urban_inh,
+       DENSE_RANK() OVER(ORDER BY A11) AS rn_avg_salary,
+       DENSE_RANK() OVER(ORDER BY A12) AS rn_unempl_rate
+  FROM district;
+
+SELECT *,
+       DENSE_RANK() OVER(PARTITION BY A3 ORDER BY A10) AS rn_urban_inh,
+       DENSE_RANK() OVER(PARTITION BY A3 ORDER BY A11) AS rn_avg_salary,
+       DENSE_RANK() OVER(PARTITION BY A3 ORDER BY A12) AS rn_unempl_rate
+  FROM district;
+  
+-- 2.08 - 2
+-- Use the transactions table in the bank database to find the Top 20 account_ids based on the amount.
+
+SELECT *,
+       RANK() OVER(ORDER BY amount DESC) AS rn
+  FROM trans
+ LIMIT 20;
+
+SELECT *,
+       DENSE_RANK() OVER(ORDER BY amount DESC) AS rn
+  FROM trans
+ LIMIT 20;
+ 
+-- 2.08 - 3
+-- Get a rank of districts ordered by the number of customers.
+SELECT d.A1,
+       RANK() OVER(ORDER BY COUNT(*) DESC) as rn_clients_per_district
+  FROM district as d
+  JOIN client as c
+    ON c.district_id = d.A1
+ GROUP BY d.A1;
+
+-- Get a rank of regions ordered by the number of customers.
+-- Get the total amount borrowed by the district together with the average loan in that district.
+-- Get the number of accounts opened by district and year.
+
 -- 3.01 - 1
 -- Get the number of clients by district, returning district name.
 
@@ -82,15 +139,6 @@ SELECT COUNT(*)
 -- 3.05 - 1
 -- Find out the average number of transactions by account. Get those accounts that have more transactions than the average.
 
-SELECT account_id, COUNT(*) AS trans_per_account
-  FROM trans
- GROUP BY account_id
-HAVING trans_per_account > (SELECT AVG(tr_per_acc) 
-                              FROM (SELECT COUNT(*) AS tr_per_acc
-                                      FROM trans
-									 GROUP BY account_id
-									) as s1
-							);
 
 
  
