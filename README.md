@@ -81,3 +81,61 @@ In this lab, you will be using the [Sakila](https://dev.mysql.com/doc/sakila/en/
 2. Active users in the previous month.
 3. Percentage change in the number of active customers.
 4. Retained customers every month.
+
+<br><br>
+# Lab | Aggregation Revisited - Subqueries
+
+### Instructions
+
+Write the SQL queries to answer the following questions:
+
+  - Select the first name, last name, and email address of all the customers who have rented a movie.
+  - What is the average payment made by each customer (display the *customer id*, *customer name* (concatenated), and the *average payment made*).
+  - Select the *name* and *email* address of all the customers who have rented the "Action" movies.
+
+    - Write the query using multiple join statements
+    - Write the query using sub queries with multiple WHERE clause and `IN` condition
+    - Verify if the above two queries produce the same results or not
+
+  - Use the case statement to create a new column classifying existing columns as either or high value transactions based on the amount of payment. If the amount is between 0 and 2, label should be `low` and if the amount is between 2 and 4, the label should be `medium`, and if it is more than 4, then it should be `high`.
+
+
+<br><br>
+# Lab | Stored procedures
+
+### Instructions
+
+Write queries, stored procedures to answer the following questions:
+
+- In the previous lab we wrote a query to find first name, last name, and emails of all the customers who rented `Action` movies. Convert the query into a simple stored procedure. Use the following query:
+
+  ```sql
+    select first_name, last_name, email
+    from customer
+    join rental on customer.customer_id = rental.customer_id
+    join inventory on rental.inventory_id = inventory.inventory_id
+    join film on film.film_id = inventory.film_id
+    join film_category on film_category.film_id = film.film_id
+    join category on category.category_id = film_category.category_id
+    where category.name = "Action"
+    group by first_name, last_name, email;
+  ```
+
+- Now keep working on the previous stored procedure to make it more dynamic. Update the stored procedure in a such manner that it can take a string argument for the category name and return the results for all customers that rented movie of that category/genre. For eg., it could be `action`, `animation`, `children`, `classics`, etc.
+
+- Write a query to check the number of movies released in each movie category. Convert the query in to a stored procedure to filter only those categories that have movies released greater than a certain number. Pass that number as an argument in the stored procedure.
+
+
+
+<br><br>
+# Lab | SQL Iterations
+
+### Instructions
+
+Write queries to answer the following questions:
+
+- Write a query to find what is the total business done by each store.
+- Convert the previous query into a stored procedure.
+- Convert the previous query into a stored procedure that takes the input for `store_id` and displays the *total sales for that store*.
+- Update the previous query. Declare a variable `total_sales_value` of float type, that will store the returned result (of the total sales amount for the store). Call the stored procedure and print the results.
+- In the previous query, add another variable `flag`. If the total sales value for the store is over 30.000, then label it as `green_flag`, otherwise label is as `red_flag`. Update the stored procedure that takes an input as the `store_id` and returns total sales value for that store and flag value.
